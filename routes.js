@@ -34,6 +34,7 @@ authPost("/user/", UsersController.addUser);
 
 const WeeksController = require("./controllers/weeks");
 authGet("/weeks/", WeeksController.showAll);
+authPost("/week/", WeeksController.addWeek);
 
 const InformationsController = require("./controllers/informations");
 authGet("/information", InformationsController.showOne);
