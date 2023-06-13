@@ -28,6 +28,7 @@ authPost("/term", TermsController.save);
 const UsersController = require("./controllers/users");
 authGet("/users/", UsersController.showAll);
 authGet("/user/:uuid", UsersController.showOne);
+authPost("/user/", UsersController.addUser);
 
 // authPost("/user", UsersController.save);
 

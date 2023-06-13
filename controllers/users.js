@@ -1,5 +1,5 @@
 const { Users } = require("../models");
-const { findAll, findByData } = require("../helpers");
+const { findAll, findByData, save } = require("../helpers");
 
 exports.showAll = async (req, res) => {
   const query = req.query;
@@ -42,3 +42,23 @@ exports.showOne = async (req, res) => {
     });
   }
 };
+
+exports.addUser = async (req, res) => {
+  
+  try {
+    await save({
+      model: Users,
+      data: req.body
+    });
+
+    res.json({
+      status: "success",
+      message: "User has been added"
+    });
+  } catch(error) {
+    res.json({
+      status: "error",
+      message: `Nie udało się dodać użytkownika. ErrorMessage: ${error}`
+    });
+  };
+}
