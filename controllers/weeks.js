@@ -24,9 +24,8 @@ exports.showAll = async (req, res) => {
 };
 
 exports.addWeek = async (req, res) => {
-  const query = req.query;
-
   try {
+    const query = req.query;
     const weeks = await findAll({
       model: Weeks,
       query
