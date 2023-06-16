@@ -17,6 +17,7 @@ const authGet = (endpoint, action) => {
 const TermsController = require("./controllers/terms");
 authGet("/terms/", TermsController.showAll);
 authGet("/terms/free", TermsController.showFree);
+authGet("/terms/reserved", TermsController.showReserved);
 authPost("/term/reserve", TermsController.reserve);
 authPost("/term/check_reservation", TermsController.checkReservation);
 authPost("/term/leave", TermsController.leave);
