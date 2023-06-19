@@ -47,6 +47,28 @@ exports.showFree = async (req, res) => {
   });
 };
 
+exports.showReserved = async (req, res) => {
+  try {
+    const result = await findAll({
+      model: Terms,
+      query: {
+        status: 2,
+      },
+      allowedFilters: ["status"],
+    });
+
+    res.json({
+      status: "success",
+      data: result
+    });
+  } catch(error) {
+    res.json({
+      status: "error",
+      message: "Nie udało się pobrać zarezerwowanych terminów"
+    });
+  };
+}
+
 const leaveTerm = async ({ id }) => {
   const existingTerm = await findById({ model: Terms, id });
 

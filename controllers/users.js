@@ -61,4 +61,4 @@ exports.addUser = async (req, res) => {
       message: `Nie udało się dodać użytkownika. ErrorMessage: ${error}`
     });
   };
-}
+};

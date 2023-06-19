@@ -54,5 +54,4 @@ exports.addWeek = async (req, res) => {
       message: "Nie udało się dodać kolejnego tygodnia. ErrorMessage: " + error,
     });
   };
-}
-;
+};
