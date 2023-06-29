@@ -1,5 +1,5 @@
 const { Terms, Users } = require("../models");
-const { findAll, save, findByData, findById } = require("../helpers");
+const { findAll, save, findByData, findById, removeById } = require("../helpers");
 const moment = require("moment");
 
 exports.showAll = async (req, res) => {
@@ -32,13 +32,13 @@ exports.showFree = async (req, res) => {
       status: 1,
     },
     allowedFilters: ["status"],
-    compartmentFilters: [
-      {
-        minValue: moment().format("yyyy-MM-DD"),
-        maxValue: moment().add(2, "weeks").format("yyyy-MM-DD"),
-        key: "date",
-      },
-    ],
+    // compartmentFilters: [
+    //   {
+    //     minValue: moment().format("yyyy-MM-DD"),
+    //     maxValue: moment().add(2, "weeks").format("yyyy-MM-DD"),
+    //     key: "date",
+    //   },
+    // ],
   });
 
   res.json({
@@ -135,12 +135,47 @@ const reserveTerm = async ({ id, user_uuid }) => {
   return true;
 };
 
+exports.remove = async (req, res) => {
+  try {
+    await removeById({
+      model: Terms,
+      id: req.params.id
+    });
+
+    res.json({
+      status: "success",
+      message: "Term has been removed successfully."
+    });
+  } catch(error) {
+    res.json({
+      status: "error",
+      message: "Failed to remove term."
+    });
+  };
+};
+
 exports.save = async (req, res) => {
   try {
     const user = await findByData({
       model: Users,
       data: { uuid: req.body.user_uuid },
     });
+    console.log(user);
+    if(!user) {
+      await save({
+        model: Terms,
+        data: {
+          ...req.body,
+          status: 1
+        }
+      });
+
+      res.json({
+        status: "success",
+        data: "add free term"
+      })
+    }
+// TODO: ADD CASE RESERVED TERM(RESERVED STATUS === 2)
   } catch (error) {
     res.json({
       status: "error",

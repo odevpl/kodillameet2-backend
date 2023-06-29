@@ -21,10 +21,8 @@ authGet("/terms/reserved", TermsController.showReserved);
 authPost("/term/reserve", TermsController.reserve);
 authPost("/term/check_reservation", TermsController.checkReservation);
 authPost("/term/leave", TermsController.leave);
-
 authPost("/term", TermsController.save);
-
-// authPost("/term/:id/remove", TermsController.remove);
+authPost("/term/:id/remove", TermsController.remove);
 
 const UsersController = require("./controllers/users");
 authGet("/users/", UsersController.showAll);
